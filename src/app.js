@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const uniqid = require('uniqid');
 
 const app = express();
 
@@ -20,10 +21,15 @@ app.use((req, res, next) => {
 
 app.post('/api/event', (req, res, next) => {
     const event = req.body;
-    console.log(event);
-    res.status(201).json({
-        message: 'Event saved!'
-    })
+    if (event.auid != '-1') {
+        res.status(201);
+    } else {
+        auidGenerate = uniqid.time();
+        res.status(201).json({
+            message: 'worlding_analytics_user_id',
+            auid: auidGenerate
+        });        
+    }
   });
 
 app.get('/', (req, res, next) => {
