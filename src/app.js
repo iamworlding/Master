@@ -19,8 +19,8 @@ app.use((req, res, next) => {
     next();
 });
 
-app.post('/api/event', (req, res, next) => {
-    const event = req.body;
+app.post('/api/event', (req, res, next) => {    
+    const event = req.body;    
     if (event.auid != '-1') {
         res.status(201);
     } else {

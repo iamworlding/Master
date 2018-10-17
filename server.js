@@ -1,6 +1,9 @@
 const app = require("./src/app");
 const debug = require("debug")("node-angular");
 const http = require("http");
+const date = require('date-and-time');
+
+const now = new Date();
 
 const normalizePort = val => {
   var port = parseInt(val, 10);
@@ -50,3 +53,5 @@ const server = http.createServer(app);
 server.on("error", onError);
 server.on("listening", onListening);
 server.listen(port);
+console.log('---- Master Server ---- ' + date.format(now, 'YYYY/MM/DD HH:mm:ss'));
+
