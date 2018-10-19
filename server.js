@@ -53,5 +53,5 @@ const server = http.createServer(app);
 server.on("error", onError);
 server.on("listening", onListening);
 server.listen(port);
-console.log('---- Master Server ---- ' + date.format(now, 'YYYY/MM/DD HH:mm:ss'));
+console.log(' >> Master Server | ' + date.format(now, 'YYYY/MM/DD HH:mm:ss'));
 

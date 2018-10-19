@@ -3,9 +3,12 @@ const mongosee = require('mongoose');
 const eventsSchema = mongosee.Schema({
     auid: { type: String },
     origin: { type: String },
-    data_date: { type: Date },
+    type: { type: String },
+    date: { type: String },
+    date_int: { type: Number },
     user: {
         ip: { type: String },
+        device: { type: String },
         referer: { type: String },
         url: { type: String },
         lat: { type: Number },
@@ -17,12 +20,12 @@ const eventsSchema = mongosee.Schema({
             userAgent: { type: String },
             os: { type: String },
             browser: { type: String },
-            device: { type: String },
+            device_agent: { type: String },
             os_version: { type: String },
             browser_version: { type: String },
         }
     },
-    date: { type: Date, default: Date.now },
+    timestamp: { type: Date, default: Date.now },
 });
 
 module.exports = mongosee.model('Events', eventsSchema);

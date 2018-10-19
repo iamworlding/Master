@@ -3,17 +3,21 @@ const bodyParser = require('body-parser');
 const uniqid = require('uniqid');
 const mongoose = require('mongoose');
 
+const date = require('date-and-time');
+
+const now = new Date();
+
 mongoose.connect('mongodb://localhost:27017/master');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log('connected');
-  
+  console.log(' >> MongoDB Connected | ' + date.format(now, 'YYYY/MM/DD HH:mm:ss'));
 });
 
 const app = express();
 
 const Event = require('./models/event');
+const Report = require('./models/report');
 
 app.use(bodyParser.json());
 
@@ -36,9 +40,12 @@ app.post('/api/event', (req, res, next) => {
         const event = new Event({
             auid: req.body.auid,
             origin: req.body.origin,
-            data_date: req.body.date,
+            type: req.body.type,
+            date: req.body.date,
+            date_int: req.body.date_int,
             user: {
                 ip: req.body.user.ip,
+                device: req.body.user.device,
                 referer: req.body.user.referer,
                 url: req.body.user.url,
                 lat: req.body.user.lat,
@@ -50,7 +57,7 @@ app.post('/api/event', (req, res, next) => {
                     userAgent: req.body.user.agent.userAgent,
                     os: req.body.user.agent.os,
                     browser: req.body.user.agent.browser,
-                    device: req.body.user.agent.device,
+                    device_agent: req.body.user.agent.device,
                     os_version: req.body.user.agent.os_version,
                     browser_version: req.body.user.agent.browser_version,
                 }
@@ -63,9 +70,12 @@ app.post('/api/event', (req, res, next) => {
         const event = new Event({
             auid: auidGenerate,
             origin: req.body.origin,
-            data_date: req.body.date,
+            type: req.body.type,
+            date: req.body.date,
+            date_int: req.body.date_int,
             user: {
                 ip: req.body.user.ip,
+                device: req.body.user.device,
                 referer: req.body.user.referer,
                 url: req.body.user.url,
                 lat: req.body.user.lat,
@@ -77,7 +87,7 @@ app.post('/api/event', (req, res, next) => {
                     userAgent: req.body.user.agent.userAgent,
                     os: req.body.user.agent.os,
                     browser: req.body.user.agent.browser,
-                    device: req.body.user.agent.device,
+                    device_agent: req.body.user.agent.device,
                     os_version: req.body.user.agent.os_version,
                     browser_version: req.body.user.agent.browser_version,
                 }
@@ -90,6 +100,25 @@ app.post('/api/event', (req, res, next) => {
         });        
     }
   });
+
+app.get('/report/landing_visit_last_30_days', (req, res, next) => {
+    Report.findOne({_id: 'landing_visit_last_30_days'}, function (error, reports) {
+    if (error) {
+        res.status(500).send('Error');
+        next();
+    }
+    res.status(201).send(reports);
+  });  
+});
+app.get('/report/landing_visit_last_6_months', (req, res, next) => {
+    Report.findOne({_id: 'landing_visit_last_6_months'}, function (error, reports) {
+    if (error) {
+        res.status(500).send('Error');
+        next();
+    }
+    res.status(201).send(reports);
+  });  
+});
 
 app.get('/', (req, res, next) => {
   res.send('Hello to Worlding API!');
