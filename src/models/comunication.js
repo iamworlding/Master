@@ -1,7 +1,7 @@
 const mongosee = require('mongoose');
 
 const comunicationsSchema = mongosee.Schema({
-    userid: { type: String},
+    auid: { type: String },
     channel: { type: String },
     type: { type: String },
     date: { type: String },

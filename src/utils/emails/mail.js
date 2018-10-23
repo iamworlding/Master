@@ -1,18 +1,17 @@
 const Email = require('email-templates');
 const path = require('path');
 
-exports.sendMail = function (languageEmail, typeEmail, nameEmail, fromEmail) {
+exports.sendMail = function (typeEmail, languageEmail, fromEmail, dataLocale) {
 
 email = new Email({
   message: {
     from: 'iamworlding@gmail.com'
   },
-  // uncomment below to send emails in development/test env:
   // send: true,
   transport: {
     host: 'smtp.gmail.com',
     port: 587,
-    secure: false, // upgrade later with STARTTLS
+    secure: false,
     auth: {
         user: 'iamworlding@gmail.com',
         pass: 'Novena1990@'
@@ -20,11 +19,12 @@ email = new Email({
   },
   views: {
     options: {
-      extension: 'hbs' // <---- HERE
+      extension: 'hbs'
     }
   },
   i18n: {}
 });
+
 
 email
   .send({
@@ -32,13 +32,9 @@ email
     message: {
       to: fromEmail
     },
-    locals: {
-      locale: languageEmail,
-      name: nameEmail,
-      email: fromEmail,
-      url: "localhost:3000/api/user/join/confirm/" + fromEmail
-    }
+    locals: dataLocale
   })
-  .then(console.log)
+  // .then(console.log)
+  .then()
   .catch(console.error);
 };

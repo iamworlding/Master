@@ -1,7 +1,7 @@
 const mongosee = require('mongoose');
 
 const promotionsSchema = mongosee.Schema({
-    userid: { type: String},
+    auid: { type: String},
     type: { type: String },
     code: { type: String },
     used: { type: Boolean, default: false },

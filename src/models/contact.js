@@ -1,13 +1,13 @@
 const mongosee = require('mongoose');
 
-const usersSchema = mongosee.Schema({
-    name: { type: String },
+const contactsSchema = mongosee.Schema({
+    auid: { type: String},
     email: { type: String },
-    email_confirm: { type: Boolean, default: false},
     language: { type: String },
+    message: { type: String },
     date: { type: String },
     date_int: { type: Number },
     timestamp: { type: Date, default: Date.now },
 });
 
-module.exports = mongosee.model('User', usersSchema);
+module.exports = mongosee.model('Contact', contactsSchema);
