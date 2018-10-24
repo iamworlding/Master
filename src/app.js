@@ -62,9 +62,9 @@ function dateInt() {
     return parseInt(yearDate + monthDate + dayDate, 10);
 };
 
+var uri = 'mongodb+srv://' + process.env.MONGO_US + ':' + process.env.MONGO_PW + process.env.MONGO_URL;
 
-
-mongoose.connect(process.env.MONGO_DB, { useNewUrlParser: true });
+mongoose.connect(uri, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
