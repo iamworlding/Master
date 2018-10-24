@@ -1,5 +1,5 @@
 const app = require("./src/app");
-const debug = require("debug")("node-angular");
+const debug = require('debug')('master');
 const http = require("http");
 const date = require('date-and-time');
 

@@ -5,7 +5,7 @@ exports.sendMail = function (typeEmail, languageEmail, fromEmail, dataLocale) {
 
 email = new Email({
   message: {
-    from: 'iamworlding@gmail.com'
+    from: process.env.MAIL_EMAIL
   },
   // send: true,
   transport: {
@@ -13,8 +13,8 @@ email = new Email({
     port: 587,
     secure: false,
     auth: {
-        user: 'iamworlding@gmail.com',
-        pass: 'Novena1990@'
+        user: process.env.MAIL_EMAIL,
+        pass: process.env.MAIL_PW
     }
   },
   views: {

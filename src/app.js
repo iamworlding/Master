@@ -64,7 +64,8 @@ function dateInt() {
 
 
 
-mongoose.connect('mongodb://localhost:27017/master');
+mongoose.connect(process.env.MONGO_DB, { 
+    user: process.env.MONGO_US, password: process.env.MONGO_PW, useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
