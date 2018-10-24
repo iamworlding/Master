@@ -140,7 +140,7 @@ app.post('/api/user/join', (req, res, next) => {
                         'locale': newuser.language,
                         'name': newuser.name,
                         'email': newuser.email,
-                        'url': 'http://localhost:3000/api/user/join/confirm/' + newuser.email
+                        'url': process.env.API_URL + '/join/confirm/' + newuser.email
                     }
                 );
                 res.status(201).send({message: 'Register completed'});
