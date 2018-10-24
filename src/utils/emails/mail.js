@@ -7,7 +7,7 @@ email = new Email({
   message: {
     from: process.env.MAIL_EMAIL
   },
-  // send: true,
+  send: process.env.SEND_MAIL,
   transport: {
     host: 'smtp.gmail.com',
     port: 587,
