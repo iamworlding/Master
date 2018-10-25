@@ -8,6 +8,7 @@ const date = require('date-and-time');
 
 const mail = require('./utils/emails/mail');
 const start = new Date();
+let mongoConnection = false;
 
 function getYear(now) {
     return String(now.getFullYear());
@@ -62,13 +63,14 @@ function dateInt() {
     return parseInt(yearDate + monthDate + dayDate, 10);
 };
 
-var uri = 'mongodb+srv://' + process.env.MONGO_US + ':' + process.env.MONGO_PW + process.env.MONGO_URL;
+var uri = process.env.MONGO_URL;
 
 mongoose.connect(uri, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log(' >> MongoDB Connected | ' + date.format(start, 'YYYY/MM/DD HH:mm:ss'));
+  mongoConnection = true;
 });
 
 const app = express();
@@ -320,6 +322,10 @@ app.get('/report/:id', (req, res, next) => {
 
 app.get('/', (req, res, next) => {
     res.render('home');
+});
+
+app.get('/connection', (req, res, next) => {
+    res.render('home', {message: 'Mongo is connected? ->' + mongoConnection});
 });
 
 module.exports = app;
